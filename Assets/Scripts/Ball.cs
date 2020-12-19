@@ -27,7 +27,7 @@ public class Ball : MonoBehaviour
 
 	private void Update()
 	{
-		if (gameController.status != GameController.GameStatus.Playing)
+		if (gameController.status != GameStatus.Playing)
 		{
 			if (!rb.isKinematic)
 			{

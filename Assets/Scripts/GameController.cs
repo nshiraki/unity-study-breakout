@@ -5,18 +5,6 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-	// ゲームのステータス
-	public enum GameStatus
-	{
-		Title,
-		InitStage,
-		StageStart,
-		Playing,
-		StageClear,
-		GameOver,
-		GameFailed,
-	};
-
 	// ブロックのprefab
 	public GameObject blockPrefab = null;
 	// 一時停止中かどうか

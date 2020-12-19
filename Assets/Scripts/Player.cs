@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if(gameController.status == GameController.GameStatus.Playing)
+		if(gameController.status == GameStatus.Playing)
 		{
 			Vector3 pos = transform.position;
 			if (Input.GetKey(KeyCode.LeftArrow))
