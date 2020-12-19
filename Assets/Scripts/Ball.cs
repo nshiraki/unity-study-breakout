@@ -52,7 +52,7 @@ public class Ball : MonoBehaviour
 		// 下の壁に接触した場合、ゲーム失敗の処理を行う
 		if (collision.gameObject.CompareTag("WallBottom"))
 		{
-			gameController.OnBallDropped();
+			gameController.OnGameFailed();
 		}
 		else
 		{

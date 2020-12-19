@@ -279,8 +279,8 @@ public class GameController : MonoBehaviour
 				UnityEngine.Application.Quit();
 #endif
 	}
-	// ボールを落とした時に外部から呼ばれるコールバック関数
-	public void OnBallDropped()
+	// 返球失敗時に外部から呼ばれるコールバック関数
+	public void OnGameFailed()
 	{
 		// ゲーム失敗の処理に移行する
 		nextStatus = GameStatus.GameFailed;
