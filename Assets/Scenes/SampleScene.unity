@@ -754,6 +754,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 16
+  explosionParticlePrefab: {fileID: 6376207262981213971, guid: 7df49186cf463614eb24eb6d1d732fd1,
+    type: 3}
 --- !u!1 &1266020647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,7 +1332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 5784835132732938398, guid: 55f865b1e7dcfa04099748633b267d96,
     type: 3}
-  isPause: 0
   messageText: {fileID: 853945314}
   playerLeftText: {fileID: 764077102}
   player: {fileID: 1063115378}

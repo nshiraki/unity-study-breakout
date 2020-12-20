@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
 	public GameObject messageText;
 	// PlayerLeftTextにアクセスする変数
 	public Text playerLeftText;
+	// BlockCountTextにアクセスする変数
+	public Text blockCountText;
 	// Playerにアクセスする変数
 	public GameObject player;
 	// Ballにアクセスする変数
@@ -212,7 +214,7 @@ public class GameController : MonoBehaviour
 			default:
 				break;
 		}
-
+		blockCountText.text = $"BLOCK={blockCount}";
 		playerLeftText.text = "LEFT=" + playerLeft;
 	}
 	// プレイヤーを初期位置に配置する
