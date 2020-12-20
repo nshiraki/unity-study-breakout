@@ -165,7 +165,7 @@ public class GameController : MonoBehaviour
 			case GameStatus.StageClear:
 				if (step == 0)
 				{
-					ShowMessageText($"STAGE {stage} CREAR");
+					ShowMessageText($"STAGE {stage} CLEAR");
 					// 経過時間リセット
 					countTime = 0;
 					// 次のステップへ
