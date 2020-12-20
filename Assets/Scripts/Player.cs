@@ -3,6 +3,8 @@
 public class Player : MonoBehaviour
 {
 	public float speed = 1.0f;
+	// 爆発パーティクル
+	public GameObject explosionParticlePrefab;
 	// GameControllerにアクセスする変数
 	GameController gameController;
 
@@ -15,7 +17,7 @@ public class Player : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if(gameController.status == GameStatus.Playing)
+		if (gameController.status == GameStatus.Playing)
 		{
 			Vector3 pos = transform.position;
 			if (Input.GetKey(KeyCode.LeftArrow))
@@ -31,5 +33,16 @@ public class Player : MonoBehaviour
 			transform.position = pos;
 
 		}
+	}
+
+	// プレイヤーを爆発させる
+	public void Explosion()
+	{
+		// プレイヤーの表示を消す
+		this.gameObject.SetActive(false);
+		// 爆発パーティクルのオブジェクト生成
+		GameObject explosionObject = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
+		// 爆発パーティクルを1秒後に消す
+		Destroy(explosionObject, 1f);
 	}
 }

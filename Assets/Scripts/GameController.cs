@@ -89,10 +89,6 @@ public class GameController : MonoBehaviour
 			case GameStatus.InitStage:
 				// ステージデータ読み込み
 				LoadStageData(stage);
-				// プレイヤー表示
-				player.SetActive(true);
-				// ボール表示
-				ball.SetActive(true);
 				InitPlayerPosition();
 				InitBallPosition();
 				nextStatus = GameStatus.StageStart;
@@ -130,43 +126,66 @@ public class GameController : MonoBehaviour
 				}
 				break;
 			case GameStatus.GameFailed:
-				ShowMessageText("Failed!");
-				// 一定時間経過
-				if (countTime > 3f)
+				if (step == 0)
 				{
-					// 残り機数がある場合
-					if (playerLeft > 0)
+					// メッセージ表示
+					ShowMessageText("Game Failed!");
+					// プレイヤーを爆発させる
+					player.GetComponent<Player>().Explosion();
+					// 経過時間リセット
+					countTime = 0;
+					// 次のステップへ
+					step++;
+				}
+				else if (step == 1)
+				{
+					// 一定時間経過
+					if (countTime > 3f)
 					{
-						// 残り機数を減らす
-						playerLeft--;
-						InitPlayerPosition();
-						InitBallPosition();
-						// ステージを再開する
-						nextStatus = GameStatus.StageStart;
-					}
-					// 残り機数がない場合
-					else
-					{
-						// ステージに残っているすべてのブロックを削除
-						RemoveAllBlocks();
-						// ゲームオーバーへ
-						nextStatus = GameStatus.GameOver;
+						// 残り機数がある場合
+						if (playerLeft > 0)
+						{
+							// 残り機数を減らす
+							playerLeft--;
+							InitPlayerPosition();
+							InitBallPosition();
+							// ステージを再開する
+							nextStatus = GameStatus.StageStart;
+						}
+						// 残り機数がない場合
+						else
+						{
+							// ステージに残っているすべてのブロックを削除
+							RemoveAllBlocks();
+							// ゲームオーバーへ
+							nextStatus = GameStatus.GameOver;
+						}
 					}
 				}
 				break;
 			case GameStatus.StageClear:
-				ShowMessageText($"STAGE {stage} CREAR");
-				if (countTime > 3f)
+				if (step == 0)
 				{
-					if (stage < MAX_STAGE_NUM)
+					ShowMessageText($"STAGE {stage} CREAR");
+					// 経過時間リセット
+					countTime = 0;
+					// 次のステップへ
+					step++;
+				}
+				else if (step == 1)
+				{
+					if (countTime > 3f)
 					{
-						stage++;
-						nextStatus = GameStatus.InitStage;
-					}
-					else
-					{
-						// 最後のステージの場合は暫定でゲームオーバーにする
-						nextStatus = GameStatus.GameOver;
+						if (stage < MAX_STAGE_NUM)
+						{
+							stage++;
+							nextStatus = GameStatus.InitStage;
+						}
+						else
+						{
+							// 最後のステージの場合は暫定でゲームオーバーにする
+							nextStatus = GameStatus.GameOver;
+						}
 					}
 				}
 				break;
@@ -203,11 +222,13 @@ public class GameController : MonoBehaviour
 	private void InitPlayerPosition()
 	{
 		player.transform.position = new Vector3(0f, 1f, -6.5f);
+		player.SetActive(true);
 	}
 	// ボールを初期位置に配置する
 	private void InitBallPosition()
 	{
 		ball.transform.position = new Vector3(0f, 1f, -5.5f);
+		ball.SetActive(true);
 	}
 	// すべてのブロックを削除する
 	private void RemoveAllBlocks()
