@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Text;
+﻿using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +6,6 @@ public class GameController : MonoBehaviour
 {
 	// ブロックのprefab
 	public GameObject blockPrefab = null;
-	// 一時停止中かどうか
-	public bool isPause = false;
 	// MessageTextにアクセスする変数
 	public GameObject messageText;
 	// PlayerLeftTextにアクセスする変数
