@@ -1333,7 +1333,6 @@ MonoBehaviour:
   isPause: 0
   messageText: {fileID: 853945314}
   playerLeftText: {fileID: 764077102}
-  blockCountText: {fileID: 0}
   player: {fileID: 1063115378}
   ball: {fileID: 1571660485}
   blockCount: 0

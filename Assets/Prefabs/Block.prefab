@@ -107,3 +107,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 1
+  explosionParticlePrefab: {fileID: 7144808304967908309, guid: 4cf92ce79ad33f448845b7766b9208a3,
+    type: 3}
