@@ -17,12 +17,7 @@ public class Ball : MonoBehaviour
 		gameController = GameObject.Find("GameController").GetComponent<GameController>();
 
 		rb = GetComponent<Rigidbody>();
-		// 初回だけAddForceを実行して指定したベクトルへボールを打ち出す
-		// AddForceに与えているパラメータについて
-		// Vector3.forward（上 Vector3(0, 0, 1) と同じ意味）
-		// Vector3.right （右 Vector3(1, 0, 0) と同じ意味）
-		// ForceMode.VelocityChange（質量を無視して瞬間的に力を加える）
-		rb.AddForce((Vector3.forward + Vector3.right) * speed, ForceMode.VelocityChange);
+		rb.velocity += new Vector3(5f, 0f, 5f);
 	}
 
 	private void Update()
@@ -72,7 +67,6 @@ public class Ball : MonoBehaviour
 				float vec = rb.velocity.x > 0 ? 5 : -5;
 				rb.velocity += new Vector3(vec, 0f, 0f);
 			}
-
 		}
 	}
 }
