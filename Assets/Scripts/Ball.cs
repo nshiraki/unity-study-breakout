@@ -39,6 +39,9 @@ public class Ball : MonoBehaviour
 				rb.velocity = preVelocity;
 				rb.angularVelocity = preAngularVelocity;
 			}
+
+			// 一定の速度にする
+			rb.velocity = rb.velocity.normalized * speed;
 		}
 	}
 
@@ -51,9 +54,6 @@ public class Ball : MonoBehaviour
 		}
 		else
 		{
-			// 壁に当たるたびに一定の速度にする
-			rb.velocity = rb.velocity.normalized * 10f;
-
 			// ボールが水平方向にしか跳ね返らなくなってしまう対策
 			float limit = 5f;
 			if (Mathf.Abs(rb.velocity.z) < limit)
