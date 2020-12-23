@@ -52,6 +52,19 @@ public class Ball : MonoBehaviour
 		{
 			gameController.OnGameFailed();
 		}
+		else if (collision.gameObject.CompareTag("Player"))
+		{
+			// ボールの中心がプレイヤーの中心からどのくらい離れているか
+			Vector3 distance = transform.position - collision.transform.position;
+			// プレイヤーの中心であれば、90度（真上）とする。
+			// プレイヤーの中心から左に離れていれば、最大で90度＋80度とする。
+			// プレイヤーの中心から右に離れていれば、最大で90度－80度とする。
+			float playerWidth = collision.collider.bounds.size.x;
+			float deg = 90f - (distance.x / (playerWidth / 2)) * 80f;
+			print("deg=" + deg);
+			float rad = deg * Mathf.Deg2Rad;
+			rb.velocity += new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad));
+		}
 		else
 		{
 			// ボールが水平方向にしか跳ね返らなくなってしまう対策
