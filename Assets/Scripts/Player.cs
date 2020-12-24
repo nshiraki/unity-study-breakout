@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 	public GameObject explosionParticlePrefab;
 	// GameControllerにアクセスする変数
 	GameController gameController;
+	// サーブするボール
+	Ball ball = null;
 
 	// Start is called before the first frame update
 	void Start()
@@ -20,6 +22,7 @@ public class Player : MonoBehaviour
 		if (gameController.status == GameStatus.Playing)
 		{
 			Vector3 pos = transform.position;
+
 			if (Input.GetKey(KeyCode.LeftArrow))
 			{
 				pos.x -= speed * Time.deltaTime;
@@ -32,6 +35,14 @@ public class Player : MonoBehaviour
 			pos.x = Mathf.Clamp(pos.x, -limit, limit);
 			transform.position = pos;
 
+			if (!ball.isServed)
+			{
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
+					ball.Serve();
+				}
+				ball.transform.position = transform.position + Vector3.forward;
+			}
 		}
 	}
 
@@ -44,5 +55,13 @@ public class Player : MonoBehaviour
 		GameObject explosionObject = Instantiate(explosionParticlePrefab, transform.position, transform.rotation);
 		// 爆発パーティクルを1秒後に消す
 		Destroy(explosionObject, 1f);
+	}
+
+	// サーブするボールをセットする
+	public void SetServeBall(Ball ball)
+	{
+		ball.gameObject.transform.position = transform.position + Vector3.forward;
+		ball.isServed = false;
+		this.ball = ball;
 	}
 }

@@ -88,28 +88,40 @@ public class GameController : MonoBehaviour
 			case GameStatus.InitStage:
 				// ステージデータ読み込み
 				LoadStageData(stage);
-				InitPlayerPosition();
-				InitBallPosition();
 				nextStatus = GameStatus.StageStart;
 				break;
 			case GameStatus.StageStart:
 				if (step == 0)
 				{
+					// メッセージ表示
 					message.Clear();
 					message.AppendLine($"STAGE {stage}");
+					ShowMessageText(message.ToString());
+					// プレイヤー初期化
+					player.transform.position = new Vector3(0f, 1f, -6.5f);
+					player.SetActive(true);
+					player.GetComponent<Player>().SetServeBall(ball.GetComponent<Ball>());
+					ball.SetActive(true);
+					// 経過時間リセット
+					countTime = 0;
+					// 次のステップへ
+					step++;
+				}
+				else if (step == 1)
+				{
 					if (countTime > 1f)
 					{
 						// 一定時間経過したらメッセージ追加
 						message.AppendLine();
 						message.AppendLine($"START");
+						ShowMessageText(message.ToString());
 						// 経過時間リセット
 						countTime = 0;
 						// 次のステップへ
 						step++;
 					}
-					ShowMessageText(message.ToString());
 				}
-				else if (step == 1)
+				else if (step == 2)
 				{
 					if (countTime > 1f)
 					{
@@ -127,8 +139,6 @@ public class GameController : MonoBehaviour
 			case GameStatus.GameFailed:
 				if (step == 0)
 				{
-					// メッセージ表示
-					ShowMessageText("Game Failed!");
 					// プレイヤーを爆発させる
 					player.GetComponent<Player>().Explosion();
 					// 経過時間リセット
@@ -139,15 +149,13 @@ public class GameController : MonoBehaviour
 				else if (step == 1)
 				{
 					// 一定時間経過
-					if (countTime > 3f)
+					if (countTime > 2f)
 					{
 						// 残り機数がある場合
 						if (playerLeft > 0)
 						{
 							// 残り機数を減らす
 							playerLeft--;
-							InitPlayerPosition();
-							InitBallPosition();
 							// ステージを再開する
 							nextStatus = GameStatus.StageStart;
 						}
@@ -217,18 +225,7 @@ public class GameController : MonoBehaviour
 		blockCountText.text = $"BLOCK={blockCount}";
 		playerLeftText.text = "LEFT=" + playerLeft;
 	}
-	// プレイヤーを初期位置に配置する
-	private void InitPlayerPosition()
-	{
-		player.transform.position = new Vector3(0f, 1f, -6.5f);
-		player.SetActive(true);
-	}
-	// ボールを初期位置に配置する
-	private void InitBallPosition()
-	{
-		ball.transform.position = new Vector3(0f, 1f, -5.5f);
-		ball.SetActive(true);
-	}
+
 	// すべてのブロックを削除する
 	private void RemoveAllBlocks()
 	{

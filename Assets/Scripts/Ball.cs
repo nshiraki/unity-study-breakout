@@ -10,6 +10,8 @@ public class Ball : MonoBehaviour
 	// 一時停止前に保管する速度
 	Vector3 preVelocity;
 	Vector3 preAngularVelocity;
+	// サーブされたかどうか
+	public bool isServed = false;
 
 	// Start is called before the first frame update
 	void Start()
@@ -17,7 +19,15 @@ public class Ball : MonoBehaviour
 		gameController = GameObject.Find("GameController").GetComponent<GameController>();
 
 		rb = GetComponent<Rigidbody>();
-		rb.velocity += new Vector3(5f, 0f, 5f);
+	}
+
+	public void Serve()
+	{
+		if (!isServed)
+		{
+			rb.velocity += new Vector3(5f, 0f, 5f);
+			isServed = true;
+		}
 	}
 
 	private void Update()
